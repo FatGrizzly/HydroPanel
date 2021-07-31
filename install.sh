@@ -10,7 +10,12 @@ Green='\033[0;32m'
 lsb_dist="$(. /etc/os-release && echo "$ID")"
 ################################
 # Start
-echo -e "$Cyan Welcome to the HydroPanel Installer. Your installation is about to begin. $Color_Reset"
+echo -e "$Cyan Welcome to the HydroPanel Installer. Running Pre-Installation Checks. $Color_Reset"
+     if [ "$EUID" -ne 0 ]; then
+        echo -e "${Red}Please run as root!${Color_Reset}"
+        exit 1
+     fi
+echo -e "$Cyan Welcome to the HydroPanel Installer. Starting the Installation. $Color_Reset"
 sleep 10s
 if [ $lsb_dist == "fedora" ] || [ $lsb_dist == "centos" ] || [ $lsb_dist == "rhel" ] || [ $lsb_dist == "cloudlinux" ]; then
         yum -y upgrade
